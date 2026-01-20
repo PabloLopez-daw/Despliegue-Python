@@ -27,3 +27,11 @@ Vagrant.configure("2") do |config|
 end
 ```
 
+## 3. Hacemos un vagrant up y ssh
+
+```bash
+vagrant up
+vagrant ssh
+```
+
+
