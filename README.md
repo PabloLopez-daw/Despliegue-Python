@@ -93,3 +93,13 @@ from application import app
 if __name__ == '__main__':
    app.run(debug=False)
 ```
+
+## 10. Comprobamos el funcionamiento con flask y Gunicorn
+
+```bash
+flask run --host '0.0.0.0'
+```
+
+```bash
+gunicorn --workers 4 --bind 0.0.0.0:5000 wsgi:app
+```
