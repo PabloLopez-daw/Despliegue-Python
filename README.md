@@ -69,3 +69,27 @@ pipenv shell
 pipenv install flask gunicorn
 ```
 
+## 8. Creamos dos archivos de prueba
+
+```bash
+touch application.py wsgi.py
+```
+
+## 9. Le metemos el siguiente contenido a application.py y a wsgi.py
+
+```python
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    '''Index page route'''
+    return '<h1>App desplegada</h1>'
+```
+
+```python
+from application import app
+
+if __name__ == '__main__':
+   app.run(debug=False)
+```
