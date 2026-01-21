@@ -195,3 +195,9 @@ cd /var/www/msdocs-python-flask-webapp-quickstart
 pipenv shell
 ```
 
+## 5. Instalamos las dependencias del archivo requirements.txt
+```bash
+pipenv install -r requirements.txt
+pipenv install gunicorn
+```
+
