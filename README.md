@@ -201,3 +201,44 @@ pipenv install -r requirements.txt
 pipenv install gunicorn
 ```
 
+## 6. Creamos un servicion Systemd, primero copiamos la ruta de gunicorns primeramente,despues vamos a crear el flask_app.service y ponemos lo siguiente, y por ultimo activamos el servicio
+
+```bash
+which gunicorn
+exit
+```
+
+```bash
+sudo nano /etc/systemd/system/flask_app.service
+
+[Unit]
+Description=flask app service - Ampliacion
+After=network.target
+
+[Service]
+User=vagrant
+Group=www-data
+Environment="/home/vagrant/.local/share/virtualenvs/msdocs-python-flask-webapp-quickstart-YrxIX3KC/bin/gunicorn"
+WorkingDirectory=/var/www/msdocs-python-flask-webapp-quickstart
+
+ExecStart=/home/vagrant/.local/share/virtualenvs/msdocs-python-flask-webapp-quickstart-YrxIX3KC/bin/gunicorn --workers 4 --bind unix:/var/www/msdocs-python-flask-webapp-quickstart/app.sock wsgi:app
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl start flask_app
+```
+
+## 7. Cambiamos la ubicacion del archivo .sock
+
+```bash
+sudo nano /etc/nginx/sites-available/app.conf
+
+proxy_pass http://unix:/var/www/msdocs-python-flask-webapp-quickstart/app.sock;
+
+sudo systemctl restart nginx
+```
+## 8 Comprobacion en la web http://app.izv
