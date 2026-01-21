@@ -165,4 +165,28 @@ sudo systemctl restart nginx
 
 ```
 192.168.33.10 app.izv www.app.izv
+
 ```
+
+# Ampliacion
+
+## 1. Primero detenemos el servicio 
+```bash
+sudo systemctl stop flask_app
+```
+
+## 2. Limpiamos la app clonamos el repositorio de la guia
+```bash
+cd /var/www
+sudo rm -rf app
+
+sudo git clone https://github.com/Azure-Samples/msdocs-python-flask-webapp-quickstart
+```
+
+## 3. Le damos los siguientes permisos
+```bash
+sudo chown -R vagrant:www-data /var/www/  msdocs-python-flask-webapp-quickstart
+sudo chmod -R 775 /var/www/msdocs-python-flask-webapp-quickstart
+```
+
+## 
