@@ -36,9 +36,36 @@ vagrant ssh
 
 ## 4. Actualizamos la maquina y descargamos los siguientes paquetes
 
-```bash
+``` bash
 sudo apt-get update
 sudo apt-get install -y python3-pip nginx git
 pip3 install pipenv
 pip3 install python-dotenv
 ```
+
+## 5. Preparamos del directorio de la aplicacion
+
+``` bash
+sudo mkdir -p /var/www/app
+sudo chown -R vagrant:www-data /var/www/app
+sudo chmod -R 775 /var/www/app
+```
+
+## 6. Creamos el archivo .env en /var/www/app y ponemos lo siguiente
+
+``` bash
+nano /var/www/app/.env
+
+FLASK_APP=wsgi.py
+FLASK_ENV=production
+```
+
+## 7. Iniciamos el entorno virtual e instalamos las dependencias
+
+``` bash
+cd /var/www/app
+pipenv shell
+
+pipenv install flask gunicorn
+```
+
