@@ -11,19 +11,19 @@ vagrant init ubuntu/bionic64
 
 ``` bash
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.box = "debian/bullseye64"
+  
+  # Asignamos una IP privada para acceder desde el navegador
+  config.vm.network "private_network", ip: "192.168.33.10"
+  
+  # Redirigimos el puerto 5000 (Flask dev) y 80 (Nginx) por si acaso
+  config.vm.network "forwarded_port", guest: 5000, host: 5000
+  config.vm.network "forwarded_port", guest: 80, host: 8080
 
-  # Red privada (como se explica en la teoría)
-  config.vm.network "private_network", ip: "192.168.56.20"
-
-  # Carpeta compartida
-  config.vm.synced_folder ".", "/vagrant"
-
-  # Provisionamiento
-  config.vm.provision "shell", inline: <<-SHELL
-    apt update
-    apt install -y python3 python3-pip python3-venv
-  SHELL
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "1024"
+    vb.cpus = 2
+  end
 end
 ```
 
@@ -34,4 +34,11 @@ vagrant up
 vagrant ssh
 ```
 
+## 4. Actualizamos la maquina y descargamos los siguientes paquetes
 
+```bash
+sudo apt-get update
+sudo apt-get install -y python3-pip nginx git
+pip3 install pipenv
+pip3 install python-dotenv
+```
