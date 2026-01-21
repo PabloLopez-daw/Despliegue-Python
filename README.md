@@ -103,3 +103,35 @@ flask run --host '0.0.0.0'
 ```bash
 gunicorn --workers 4 --bind 0.0.0.0:5000 wsgi:app
 ```
+
+## 11. Creamos un servicion Systemd, primero copiamos la ruta de gunicorns primeramente,despues vamos a crear el flask_app.service y ponemos lo siguiente, y por ultimo activamos el servicio
+
+```bash
+which gunicorn
+exit
+```
+
+```bash
+sudo nano /etc/systemd/system/flask_app.servicen
+
+[Unit]
+Description=flask app service - App con flask y Gunicorn
+After=network.target
+
+[Service]
+User=vagrant
+Group=www-data
+Environment="/home/vagrant/.local/share/virtualenvs/app-1lvW3LzD/bin/gunicorn"
+WorkingDirectory=/var/www/app
+ExecStart=/home/vagrant/.local/share/virtualenvs/app-1lvW3LzD/bin/gunicorn --workers 3 --b>
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable flask_app
+sudo systemctl start flask_app
+```
