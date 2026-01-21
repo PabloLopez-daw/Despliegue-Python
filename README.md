@@ -135,3 +135,28 @@ sudo systemctl daemon-reload
 sudo systemctl enable flask_app
 sudo systemctl start flask_app
 ```
+
+## 12. Creamos un archivo de configuracion de nginx y activamos el sitio
+
+```bash 
+sudo nano /etc/nginx/sites-available/app.conf
+
+server {
+  listen 80;
+  server_name app.izv www.app.izv;
+
+  access_log /var/log/nginx/app.access.log;
+  error_log /var/log/nginx/app.error.log;
+
+  location / {
+    include proxy_params;
+    proxy_pass http://unix:/var/www/app/app.sock;
+  }
+}
+```
+
+```bash
+sudo ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+```
