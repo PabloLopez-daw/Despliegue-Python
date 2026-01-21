@@ -189,4 +189,9 @@ sudo chown -R vagrant:www-data /var/www/  msdocs-python-flask-webapp-quickstart
 sudo chmod -R 775 /var/www/msdocs-python-flask-webapp-quickstart
 ```
 
-## 
+## 4 Preparamos las dependencias 
+```bash
+cd /var/www/msdocs-python-flask-webapp-quickstart
+pipenv shell
+```
+
