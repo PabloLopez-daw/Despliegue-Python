@@ -160,3 +160,9 @@ sudo ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```
+
+## 13. Configuracion de Hosts,Nos vamos a la ruta  C:\Windows\System32\drivers\etc\host y ponemos lo siguiente 
+
+```
+192.168.33.10 app.izv www.app.izv
+```
